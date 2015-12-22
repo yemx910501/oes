@@ -22,7 +22,7 @@ $(function(){
 			}, function(msg){
 				if (msg=="success") {
 					alert("登录成功！");
-					document.location.replace("app/pages/main.php");
+					document.location.replace("main.php");
 				} else {
 					$("#msg").html("用户名或密码错误！"); 
 				}

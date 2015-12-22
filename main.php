@@ -1,4 +1,16 @@
-﻿<?php //include 'getUserMsg.php';?>
+﻿<?php 
+	require_once 'app/common/commonFunc.php';
+	
+	session_start();
+	$conn = createConn();
+	$userId = $_SESSION['auth_user_id'];
+	$menu_rs = mysql_query("SELECT DISTINCT m.* FROM MENU m 
+		JOIN ROLE_MENU_RELATION rm ON m.MENU_ID = rm.MENU_ID 
+		JOIN USER_ROLE_RELATION ur ON rm.ROLE_ID = ur.ROLE_ID 
+		JOIN USER u ON u.USER_ID = ur.USER_ID 
+		WHERE u.USER_ID = '$userId'
+		ORDER BY m.sort");
+?>
 
 <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">-->
@@ -88,10 +100,10 @@ $(function(){
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">
-				<!--<a class="logo" href="http://j-ui.com">标志</a>-->
-				<div class="logo"></div>
+				<a class="logo" href="http://j-ui.com">标志</a>
+				<!-- <div class="logo"></div> -->
 				<ul class="nav">
-					<li>你好，<?php echo $_SESSION['EmpNo'] . "/ " . $_SESSION['EmpCName'];?></li>
+					<li>你好，<?php echo $_SESSION['auth_username'];?></li>
 					<li><a href="logout.php">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">
@@ -102,9 +114,6 @@ $(function(){
 					<li theme="silver"><div>银色</div></li>
 					<li theme="azure"><div class="selected">天蓝</div></li>				
 				</ul>
-				<input type="hidden" id="website" value="<?php echo $_SESSION['URL'];?>"/>
-				<input type="hidden" id="db_dommas" value="<?php echo $_SESSION['DOMMAS'];?>"/>
-				<input type="hidden" id="empNo" value="<?php echo $_SESSION['EmpNo'];?>"/>
 			</div>
 		</div>
 		
@@ -115,24 +124,24 @@ $(function(){
 				</div>
 			</div>
 			<div id="sidebar">
-				<div class="toggleCollapse"><h2><?php echo $lang_array['main_menu'];?></h2><div>收缩</div></div>
+				<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
 				
 				<div class="accordion" fillSpace="sidebar">
 					<?php 
-						$pos = 0; //记录$menu_rs的行指针位置
-						while($fmenu = mysql_fetch_array($menu_rs)){
+						$pos = 0; // 记录$menu_rs的行指针位置
+						while ($fmenu = mysql_fetch_array($menu_rs)) {
 							$pos++;
-							if($fmenu['fatherid']==0){
+							if ($fmenu['father_menu_id']==0) {
 								echo "<div class='accordionHeader'>";
-								echo "<h2><span>Folder</span>" . $fmenu['menuname'] . "</h2>";
+								echo "<h2><span>Folder</span>" . $fmenu['menu_name'] . "</h2>";
 								echo "</div>";
 								echo "<div class='accordionContent'>";
 								echo "<ul class='tree'>";
-								mysql_data_seek($menu_rs,0); //将$rs的行指针移动到指定的行号(0表示第一个记录)
-								while($smenu = mysql_fetch_array($menu_rs)){
-									if($smenu['fatherid']==$fmenu['menuid']){
-										echo "<li><a href='" . $smenu['menuurl'] . "' target='navTab' rel='oa" . $smenu['menuid'] . "'>" 
-											. $smenu['menuname'] . "</a></li>";
+								mysql_data_seek($menu_rs,0); // 将$rs的行指针移动到指定的行号(0表示第一个记录)
+								while ($smenu = mysql_fetch_array($menu_rs)) {
+									if ($smenu['father_menu_id']==$fmenu['menu_id']) {
+										echo "<li><a href='" . $smenu['menu_url'] . "' target='navTab' rel='oa" . $smenu['menu_id'] . "'>" 
+											. $smenu['menu_name'] . "</a></li>";
 									}
 								}
 								mysql_data_seek($menu_rs,$pos);
@@ -159,7 +168,7 @@ $(function(){
 					<div class="tabsMore">more</div>
 				</div>
 				<ul class="tabsMoreList">
-					<li><a href="javascript:;"><?php echo $lang_array['home_page'];?></a></li>
+					<li><a href="javascript:;">我的主页</a></li>
 				</ul>
 				<div class="navTab-panel tabsPageContent layoutBox">
 					<div class="page unitBox" id="maintabshow"></div>

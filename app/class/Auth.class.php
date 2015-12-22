@@ -15,8 +15,6 @@
 		
 		function Auth()
 		{
-			global $db;
-	 
 			$this->user_id = 0;
 			$this->username = "Guest";
 			$this->ok = false;
@@ -45,7 +43,7 @@
 		function check($username, $password)
 		{
 			$conn = createConn();
-			$result = mysql_query("SELECT * FROM user WHERE user_name = '$username'");
+			$result = mysql_query("SELECT * FROM USER WHERE USER_NAME = '$username'");
 			$count = mysql_num_rows($result);
 			if($count==1)
 			{
@@ -66,7 +64,7 @@
 		function login($username, $password)
 		{
 			$conn = createConn();
-			$result = mysql_query("SELECT * FROM user WHERE user_name = '$username' AND password = '$password'");
+			$result = mysql_query("SELECT * FROM USER WHERE USER_NAME = '$username' AND PASSWORD = '$password'");
 			$count = mysql_num_rows($result);
 			if($count==1)
 			{
@@ -75,6 +73,7 @@
 				$this->username = $username;
 				$this->ok = true;
 				
+				$_SESSION['auth_user_id'] = $this->user_id;
 				$_SESSION['auth_username'] = $username;
 				$_SESSION['auth_password'] = md5($password . $this->salt);
 				setcookie("auth_username", $username, time()+60*60*24*30, "/", $this->domain);
