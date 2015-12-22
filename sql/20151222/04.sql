@@ -1,4 +1,4 @@
-# 初始化角色拥有的菜单
+# 鍒濆鍖栬鑹叉嫢鏈夌殑鑿滃崟
 INSERT INTO `role_menu_relation`(`role_id`, `menu_id`) VALUES 
 (1, 1),
 (1, 2),
