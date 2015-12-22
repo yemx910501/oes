@@ -1,2 +1,2 @@
-# 初始化用户admin拥有的角色 
+# 鍒濆鍖栫敤鎴疯鑹茬殑鍏崇郴
 INSERT INTO `user_role_relation`(`user_id`, `role_id`) VALUES (1, 1)
