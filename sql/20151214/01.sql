@@ -1,4 +1,4 @@
-#´´½¨ÓÃ»§½ÇÉ«¹ØÏµ±í
+# åˆ›å»ºç”¨æˆ·è§’è‰²å…³ç³»è¡¨
 CREATE TABLE `user_role_relation` (
  `user_id` int(10) NOT NULL,
  `role_id` int(10) NOT NULL,
