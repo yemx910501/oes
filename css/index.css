@@ -1,0 +1,8 @@
+/* 我的首页 td {text-align: center;}*/
+table.exam_table {width: 1186px}
+th, td {text-align: center;}
+td.tpname{text-align: left;}
+
+.failsStart {color: #047AD3;}
+.startTest {color: #FF0000;}
+.hasEnded {color: #666666;}
