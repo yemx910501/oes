@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2015-12-29 05:18:01
+-- Generation Time: 2015-12-29 06:37:09
 -- 服务器版本： 5.5.36
 -- PHP Version: 5.4.27
 
@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `menu` (
 INSERT INTO `menu` (`menu_id`, `menu_name`, `menu_url`, `sort`, `father_menu_id`) VALUES
 (1, '系统管理', '父菜单，无链接', 0, 0),
 (2, '用户管理', 'app/pages/user.php', 1, 1),
-(3, '角色管理', '', 2, 1),
-(4, '菜单管理', '', 3, 1),
+(3, '角色管理', 'app/pages/role.php', 2, 1),
+(4, '菜单管理', 'app/pages/menu.php', 3, 1),
 (5, '试卷管理', '父菜单，无链接', 4, 0),
-(6, '试题管理', '', 5, 5),
-(7, '试卷管理', '', 6, 5),
-(8, '试卷批阅', '', 7, 5),
-(9, '题型管理', '', 8, 5),
-(10, '课程管理', '', 9, 5);
+(6, '试题管理', 'app/pages/question.php', 5, 5),
+(7, '试卷管理', 'app/pages/examPaper.php', 6, 5),
+(8, '试卷批阅', 'app/pages/waitMarkList.php', 7, 5),
+(9, '题型管理', 'app/pages/questionType.php', 8, 5),
+(10, '课程管理', 'app/pages/course.php', 9, 5);
 
 -- --------------------------------------------------------
 
