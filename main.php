@@ -1,15 +1,21 @@
 ﻿<?php 
-	require_once 'app/common/commonFunc.php';
-	
 	session_start();
-	$conn = createConn();
-	$userId = $_SESSION['auth_user_id'];
-	$menu_rs = mysql_query("SELECT DISTINCT m.* FROM MENU m 
-		JOIN ROLE_MENU_RELATION rm ON m.MENU_ID = rm.MENU_ID 
-		JOIN USER_ROLE_RELATION ur ON rm.ROLE_ID = ur.ROLE_ID 
-		JOIN USER u ON u.USER_ID = ur.USER_ID 
-		WHERE u.USER_ID = '$userId'
-		ORDER BY m.sort");
+	if (!isset($_SESSION['userName'])) { // 未登录
+		echo "<script language='javascript'>";
+		echo "window.location.href='index.php';";
+		echo "</script>";
+	} else { // 已登录
+		include_once 'app/common/commonFunc.php';
+		
+		$conn = createConn();
+		$userId = $_SESSION['auth_user_id'];
+		$menu_rs = mysql_query("SELECT DISTINCT m.* FROM MENU m 
+			JOIN ROLE_MENU_RELATION rm ON m.MENU_ID = rm.MENU_ID 
+			JOIN USER_ROLE_RELATION ur ON rm.ROLE_ID = ur.ROLE_ID 
+			JOIN USER u ON u.USER_ID = ur.USER_ID 
+			WHERE u.USER_ID = '$userId'
+			ORDER BY m.sort");
+	}
 ?>
 
 <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -103,7 +109,7 @@ $(function(){
 				<a class="logo" href="http://j-ui.com">标志</a>
 				<!-- <div class="logo"></div> -->
 				<ul class="nav">
-					<li>你好，<?php echo $_SESSION['auth_username'];?></li>
+					<li>你好，<?php echo $_SESSION['userName'];?></li>
 					<li><a href="logout.php">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">
