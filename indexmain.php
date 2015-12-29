@@ -1,6 +1,6 @@
 ﻿<?php
 	session_start();
-	require_once 'app/common/commonFunc.php';
+	require_once dirname(__FILE__).'app/common/commonFunc.php';
 	$conn = createConn();
 	
 	$pageSize = isset($_POST['pageSize'])?$_POST['pageSize']:10; // 每一页显示的记录数
