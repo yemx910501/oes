@@ -9,12 +9,12 @@
 		
 		$conn = createConn();
 		$userId = $_SESSION['userId'];
-		$menu_rs = mysql_query("SELECT DISTINCT m.* FROM MENU m 
-			JOIN ROLE_MENU_RELATION rm ON m.MENU_ID = rm.MENU_ID 
-			JOIN USER_ROLE_RELATION ur ON rm.ROLE_ID = ur.ROLE_ID 
-			JOIN USER u ON u.USER_ID = ur.USER_ID 
-			WHERE u.USER_ID = '$userId'
-			ORDER BY m.sort");
+		$menu_rs = mysql_query("select distinct m.* from menu m 
+			join role_menu_relation rm on m.menu_id = rm.menu_id 
+			join user_role_relation ur on rm.role_id = ur.role_id 
+			join user u on u.user_id = ur.user_id 
+			where u.user_id = '$userid'
+			order by m.sort");
 	}
 ?>
 
