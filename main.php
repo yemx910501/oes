@@ -8,7 +8,7 @@
 		include_once 'app/common/commonFunc.php';
 		
 		$conn = createConn();
-		$userId = $_SESSION['auth_user_id'];
+		$userId = $_SESSION['userId'];
 		$menu_rs = mysql_query("SELECT DISTINCT m.* FROM MENU m 
 			JOIN ROLE_MENU_RELATION rm ON m.MENU_ID = rm.MENU_ID 
 			JOIN USER_ROLE_RELATION ur ON rm.ROLE_ID = ur.ROLE_ID 
@@ -109,7 +109,7 @@ $(function(){
 				<a class="logo" href="http://j-ui.com">标志</a>
 				<!-- <div class="logo"></div> -->
 				<ul class="nav">
-					<li>你好，<?php echo $_SESSION['userName'];?></li>
+					<li>你好，<?php echo $_SESSION['userId'] . "/ " . $_SESSION['userName'];?></li>
 					<li><a href="logout.php">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">
