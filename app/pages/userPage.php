@@ -5,6 +5,7 @@
 	require_once dirname(__FILE__).'/../common/commonFunc.php';
 	session_start();
 	
+	$path = "app/pages/";
 	$pageSize = isset($_POST['pageSize'])?$_POST['pageSize']:10; // 每一页显示的记录数
 	$currentPage = isset($_POST['currentPage'])?intval($_POST['currentPage']):1; // 设置当前页
 	$userId = isset($_POST['userId'])?$_POST['userId']:''; // 学号
@@ -13,18 +14,18 @@
 	
 	$conn = createConn(); // 创建数据库连接
 	mysql_query("set character_set_connection=utf8");
-	$querySql = "SELECT DISTINCT U.* FROM USER U JOIN USER_ROLE_RELATION URR ON U.USER_ID = URR.USER_ID WHERE 1 = 1";
-	$countSql = "SELECT COUNT(*) FROM USER U WHERE 1 = 1";
+	$querySql = "select distinct u.* from user u join user_role_relation urr on u.user_id = urr.user_id where 1 = 1";
+	$countSql = "select count(*) from user u where 1 = 1";
 	$whereSql = "";
-	$orderSql = " ORDER BY URR.ROLE_ID ASC, U.USER_ID ASC LIMIT $offset, $pageSize";
+	$orderSql = " order by urr.role_id asc, u.user_id asc limit $offset, $pageSize";
 	
 	if ($userId!="") {
-		$whereSql .= " AND U.USER_ID LIKE '%" . test_input($userId) . "%'";
+		$whereSql .= " and u.user_id like '%" . test_input($userId) . "%'";
 	}
 	
 	if ($roleId!="") {
-		$whereSql .= " AND U.USER_ID IN (SELECT U.USER_ID FROM USER_ROLE_RELATION URR 
-			 JOIN USER U ON URR.USER_ID = U.USER_ID WHERE URR.ROLE_ID = '$roleId')";
+		$whereSql .= " and u.user_id in (select u.user_id from user_role_relation urr 
+			 join user u on urr.user_id = u.user_id where urr.role_id = '$roleId')";
 	}
 	
 	$sql = $querySql . $whereSql . $orderSql;
@@ -39,13 +40,11 @@
 	}
 	
 	// 查询角色为系统管理员的用户
-	$listRs = mysql_query("SELECT U.USER_ID FROM USER_ROLE_RELATION URR JOIN USER U ON URR.USER_ID = U.USER_ID WHERE URR.ROLE_ID = 1");
+	$listRs = mysql_query("select u.user_id from user_role_relation urr join user u on urr.user_id = u.user_id where urr.role_id = 1");
 	$adminList = array();
 	while ($admin = mysql_fetch_array($listRs)) {
-		$adminList[] = $admin['USER_ID'];
+		$adminList[] = $admin['user_id'];
 	}
-
-	$path = "app/pages/";
 ?>
 
 <div class="pageHeader">
@@ -64,7 +63,7 @@
 						<select class="combox" name="role">
 							<option value=''>--请选择--</option>
 							<?php
-								$role_rs = mysql_query("SELECT * FROM ROLE ORDER BY ROLE_ID");
+								$role_rs = mysql_query("select * from role order by role_id");
 								while ($role = mysql_fetch_array($role_rs)) {
 									echo "<option value='" . $role['role_id'] . "'" . ($roleId==$role['role_id']?'selected':'') . ">" 
 										 . $role['role_name'] . "</option>";
@@ -108,8 +107,8 @@
 				if (is_resource($rs)) {
 					$sort = 0;
 					while ($user = mysql_fetch_array($rs)) {
-						$roleRs = mysql_query("SELECT GROUP_CONCAT(R.ROLE_NAME) AS ROLE_NAME FROM ROLE R JOIN USER_ROLE_RELATION URR ON R.ROLE_ID = URR.ROLE_ID 
-							WHERE URR.USER_ID = " . $user['user_id']); // 查找用户拥有的角色
+						$roleRs = mysql_query("select group_concat(r.role_name) as role_name from role r join user_role_relation urr on r.role_id = urr.role_id 
+							where urr.user_id = " . $user['user_id']); // 查找用户拥有的角色
 						$role = mysql_fetch_array($roleRs);
 						
 						echo "<tr target='sid_user' rel='" . $user['user_id'] . "'>";
@@ -124,7 +123,7 @@
 						echo "<td>" . $user['user_id'] . "</td>";
 						echo "<td>" . $user['user_name'] . "</td>";
 						echo "<td>" . ($user['gender']=="M"?"男":"女") . "</td>";
-						echo "<td>" . $role['ROLE_NAME'] . "</td>";
+						echo "<td>" . $role['role_name'] . "</td>";
 						echo "<td>";
 						
 						if (in_array($user['user_id'], $adminList) && !in_array($_SESSION['userId'], $adminList)) {
