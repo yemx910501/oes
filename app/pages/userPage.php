@@ -54,7 +54,7 @@
 			<input type="hidden" name="pageSize" value="<?php echo $pageSize?>" />
 			<table class="searchContent">
 				<tr>
-					<td>学号：</td>
+					<td>用户ID：</td>
 					<td>
 						<input type="text" name="userId" value="<?php echo $userId;?>"/>					
 					</td>
@@ -95,7 +95,7 @@
 			<tr>
 				<th width="5px" align="center"><input class="checkboxCtrl" type="checkbox" group="ids[]"></th>
 				<th width="20px" align="center">序号</th>
-				<th width="80px" align="center">学号</th>
+				<th width="80px" align="center">用户ID</th>
 				<th width="80px" align="center">姓名</th>
 				<th width="40px" align="center">性别</th>
 				<th width="120px" align="center">角色</th>
@@ -129,8 +129,8 @@
 						if (in_array($user['user_id'], $adminList) && !in_array($_SESSION['userId'], $adminList)) {
 							echo "[无权]";
 						} else {
-							echo "<a href='" . $path . "&a=editUserPage&userId=" . $user['user_id'] . "' target='navTab' title='修改用户信息' class='btnEdit'></a>";
-							echo "<a href='" . $path . "&a=deleteUser&userId=" . $user['user_id'] . "' target='ajaxTodo' title='删除用户？' class='btnDel'></a>";
+							echo "<a href='" . $path . "userEditPage.php?userId=" . $user['user_id'] . "' target='navTab' title='修改用户信息' class='btnEdit'></a>";
+							echo "<a href='app/deleteUser?userId=" . $user['user_id'] . "' target='ajaxTodo' title='删除用户？' class='btnDel'></a>";
 						}
 						echo "</td>";
 						echo "</tr>";
