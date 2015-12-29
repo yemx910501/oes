@@ -13,7 +13,7 @@
 			join role_menu_relation rm on m.menu_id = rm.menu_id 
 			join user_role_relation ur on rm.role_id = ur.role_id 
 			join user u on u.user_id = ur.user_id 
-			where u.user_id = '$userid'
+			where u.user_id = '$userId'
 			order by m.sort");
 	}
 ?>
