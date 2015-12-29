@@ -8,16 +8,16 @@
 
 	if (isset($_POST['username']) && isset($_POST['password'])
 			&& $_POST['username'] != "" && $_POST['password'] != "") { // 用户名密码都不为空
-		$username = $_POST['username'];
+		$userName = $_POST['username'];
 		$password = $_POST['password'];
 		
 		$conn = createConn(); // 创建数据库连接
-		$result = mysql_query("SELECT * FROM USER WHERE USER_ID = '$username' AND PASSWORD = '$password'");
+		$result = mysql_query("SELECT * FROM USER WHERE USER_ID = '$userName' AND PASSWORD = '$password'");
 		$count = mysql_num_rows($result);
 		if ($count==1) { // 登录成功
 			$userIdResult = mysql_fetch_array($result);
-			$_SESSION['auth_user_id'] = $username;
-			$_SESSION['auth_username'] = $userIdResult['user_name'];
+			$_SESSION['userId'] = $userName;
+			$_SESSION['userName'] = $userIdResult['user_name'];
 			echo "<script language='javascript'>";
 			echo "window.location.href='../main.php';";
 			echo "</script>";
