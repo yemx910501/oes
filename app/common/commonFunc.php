@@ -2,20 +2,18 @@
 /************************************************************
 *   					共用函数
 ************************************************************/
-	require_once dirname(__FILE__).'/../config/config.php';
-	
 	/*
 		创建数据库（mysql）连接
 	*/ 
 	function createConn() {
-		$conn = mysql_connect(Server_Name, User_Name, Password);
+		$conn = mysql_connect("localhost", "root", "");
 		if (!$conn) {
 			die("Could not connect:" . mysql_errno());
 		}
 		mysql_query("set names ’utf8’ ");
 		mysql_query("set character_set_client=utf8");
 		mysql_query("set character_set_results=utf8");
-		mysql_select_db(DB, $conn);
+		mysql_select_db("oes", $conn);
 		return $conn;
 	}
 	

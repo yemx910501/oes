@@ -25,7 +25,7 @@
 		</div>
 		<div id="login_content">
 			<div class="loginForm">
-				<form id="loginForm" name="_loginForm" method="post">
+				<form id="loginForm" name="_loginForm" method="post" action="app/login.php" onsubmit="return validateForm();">
 					<p>
 						<label>用户名：</label>
 						<input type="text" name="username" id="username" class="login_input"/>
@@ -35,7 +35,7 @@
 						<input type="password" name="password" id="password" class="login_input"/>
 					</p>
 					<div class="login_bar">
-						<input class="sub" type="button" value="" id="btn_login"/>
+						<input class="sub" type="submit" value=""/>
 					</div>
 					<p></p>  
 				</form>
