@@ -12,7 +12,7 @@
 		$password = $_POST['password'];
 		
 		$conn = createConn(); // 创建数据库连接
-		$result = mysql_query("SELECT * FROM USER WHERE USER_ID = '$userName' AND PASSWORD = '$password'");
+		$result = mysql_query("select * from user where user_id = '$username' and password = '$password'");
 		$count = mysql_num_rows($result);
 		if ($count==1) { // 登录成功
 			$userIdResult = mysql_fetch_array($result);
