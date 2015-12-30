@@ -2,7 +2,6 @@
 	require_once dirname(__File__).'/../common/commonFunc.php';
 	
 	session_start();
-	$path = "app/pages/";
 	$userId = $_GET['userId'];
 	
 	$conn = createConn(); // 创建数据库连接
@@ -27,7 +26,7 @@
 <h2 class="contentTitle" align="center">编辑用户信息</h2>
 
 <div class="pageContent" align="right">
-	<form method="post" action="<?php echo $path;?>updateUser&userId=<?php echo $userId;?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+	<form method="post" action="app/userAction.php?op=updateUserRoles&userId=<?php echo $userId;?>" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
 		<div class="pageFormContent nowrap" layoutH="97">
 			<dl>
 				<dt>用户ID：</dt>
