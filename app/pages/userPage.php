@@ -5,7 +5,6 @@
 	require_once dirname(__FILE__).'/../common/commonFunc.php';
 	session_start();
 	
-	$path = "app/pages/";
 	$pageSize = isset($_POST['pageSize'])?$_POST['pageSize']:10; // 每一页显示的记录数
 	$currentPage = isset($_POST['currentPage'])?intval($_POST['currentPage']):1; // 设置当前页
 	$userId = isset($_POST['userId'])?$_POST['userId']:''; // 学号
@@ -48,7 +47,7 @@
 ?>
 
 <div class="pageHeader">
-	<form id="pagerForm" onsubmit="return navTabSearch(this);" action="<?php echo $path;?>userPage.php" method="post">
+	<form id="pagerForm" onsubmit="return navTabSearch(this);" action="app/pages/userPage.php" method="post">
 		<div class="searchBar" align="center">
 			<input type="hidden" name="currentPage" value="1" />
 			<input type="hidden" name="pageSize" value="<?php echo $pageSize?>" />
@@ -84,7 +83,7 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="delete" href="<?php echo $path;?>batchDeleteUser.php" rel="ids[]" target="selectedTodo" title="确定要删除这些用户吗？"><span>批量删除</span></a></li>
+			<li><a class="delete" href="app/userAction.php?op=batchDel" rel="ids[]" target="selectedTodo" title="确定要删除这些用户吗？"><span>批量删除</span></a></li>
 		</ul>
 	</div>
 	<?php 
@@ -129,8 +128,8 @@
 						if (in_array($user['user_id'], $adminList) && !in_array($_SESSION['userId'], $adminList)) {
 							echo "[无权]";
 						} else {
-							echo "<a href='" . $path . "userEditPage.php?userId=" . $user['user_id'] . "' target='navTab' title='修改用户信息' class='btnEdit'></a>";
-							echo "<a href='app/deleteUser?userId=" . $user['user_id'] . "' target='ajaxTodo' title='删除用户？' class='btnDel'></a>";
+							echo "<a href='app/pages/userEditPage.php?userId=" . $user['user_id'] . "' target='navTab' title='修改用户信息' class='btnEdit'></a>";
+							echo "<a href='app/userAction.php?op=delete&userId=" . $user['user_id'] . "' target='ajaxTodo' title='删除用户？' class='btnDel'></a>";
 						}
 						echo "</td>";
 						echo "</tr>";
