@@ -9,7 +9,7 @@
 		
 		$conn = createConn();
 		$userId = $_SESSION['userId'];
-		$menu_rs = mysql_query("select distinct m.* from menu m 
+		$menuRs = mysql_query("select distinct m.* from menu m 
 			join role_menu_relation rm on m.menu_id = rm.menu_id 
 			join user_role_relation ur on rm.role_id = ur.role_id 
 			join user u on u.user_id = ur.user_id 
@@ -135,7 +135,7 @@ $(function(){
 				<div class="accordion" fillSpace="sidebar">
 					<?php 
 						$pos = 0; // 记录$menu_rs的行指针位置
-						while ($fmenu = mysql_fetch_array($menu_rs)) {
+						while ($fmenu = mysql_fetch_array($menuRs)) {
 							$pos++;
 							if ($fmenu['father_menu_id']==0) {
 								echo "<div class='accordionHeader'>";
@@ -143,14 +143,14 @@ $(function(){
 								echo "</div>";
 								echo "<div class='accordionContent'>";
 								echo "<ul class='tree'>";
-								mysql_data_seek($menu_rs,0); // 将$rs的行指针移动到指定的行号(0表示第一个记录)
-								while ($smenu = mysql_fetch_array($menu_rs)) {
+								mysql_data_seek($menuRs, 0); // 将$rs的行指针移动到指定的行号(0表示第一个记录)
+								while ($smenu = mysql_fetch_array($menuRs)) {
 									if ($smenu['father_menu_id']==$fmenu['menu_id']) {
 										echo "<li><a href='" . $smenu['menu_url'] . "' target='navTab' rel='oa" . $smenu['menu_id'] . "'>" 
 											. $smenu['menu_name'] . "</a></li>";
 									}
 								}
-								mysql_data_seek($menu_rs,$pos);
+								mysql_data_seek($menuRs, $pos);
 								echo "</ul>";
 								echo "</div>";
 							}
