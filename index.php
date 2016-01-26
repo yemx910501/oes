@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset='utf-8'"/> 
-<title>在线考试系统222</title>
+<title>在线考试系统</title>
 <link href="dwz/themes/css/login.css" rel="stylesheet" type="text/css"/>
 <script src="dwz/js/jquery-1.7.2.js" type="text/javascript"></script>
 <script src="js/login.js" type="text/javascript"></script>
