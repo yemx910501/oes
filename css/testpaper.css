@@ -1,0 +1,15 @@
+/* list,add,edit,info... page */
+.floatLeft {float: left;}
+
+span.text {float: left; margin-top: 5px;}
+span.option {float: left; width: 45px;}
+span.qtype {float: left; width: 76px;}
+span.pointout {color: #7f7f7f; line-height: 21px;}
+
+input.point {float: left; width: 40px;}
+input.q_num {float: left; width: 25px;}
+input.testpaper {float: left; width: 200px;}
+input.typename {float: left; width: 85px;}
+input.typecode {float: left; width: 30px;}
+input.coursename {float: left; width: 270px;}
+input.menuUrl {float: left; width: 230px;}
