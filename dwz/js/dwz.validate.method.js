@@ -32,27 +32,27 @@
 			}
 		}, "Please enter a valid date.");
 		
-		/* 验证真实姓名 by ymx 2013/11/1 */
+		/* 验证真实姓名 */
 		$.validator.addMethod("truename", function(value, element) {
 			return this.optional(element) || /^[\u4e00-\u9fa5]{2,10}$/.test(value);
 		}, "Please specify a valid truename");
 		
-		/* 验证身份证 by ymx 2013/11/1 */
+		/* 验证身份证 */
 		$.validator.addMethod("idnumber", function(value, element) {
 			return this.optional(element) || /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/.test(value);
 		}, "Please specify a valid idnumber");
 		
-		/* 验证手机号码 by ymx 2013/11/1 */
+		/* 验证手机号码 */
 		$.validator.addMethod("mobilephone", function(value, element) {
 			return this.optional(element) || /^[0-9]{11}$/.test(value);
 		}, "Please specify a valid mobilephone");
 		
-		/* 验证地址 by ymx 2013/11/1 */
+		/* 验证地址 by */
 		$.validator.addMethod("address", function(value, element) {
 			return this.optional(element) || /^.{1,100}$/.test(value);
 		}, "Please specify a valid address");
 		
-		/* 验证试题分数 by ymx 2014/8/25*/
+		/* 验证试题分数 */
 		$.validator.addMethod("score", function(value, element) {
 			var flag=false, OK_flag=true;
 			if(/^[0-9]+(.[0-9]{1,1})?$/.test(value)){
