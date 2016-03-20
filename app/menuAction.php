@@ -44,7 +44,7 @@
 			$statusCode = "200";
 			$message = "成功删除了" . $del_count . "个菜单。";
 			$navTabId = "oa4";
-			$rel = $forwardUrl = $confirmMsg = "";
+			$callbackType = $rel = $forwardUrl = $confirmMsg = "";
 			break;
 	}
 	mysql_close($conn);
@@ -101,7 +101,9 @@
 		$menu = mysql_fetch_array($menuRs);
 		if ($menu['father_menu_id'] == 0) { // 父菜单
 			mysql_query("delete from menu where menu_id = " . $menuId . " or father_menu_id = " . $menuId);
+			// mysql_query("delete from role_menu_relation where menu_id = " . $menuId); // 删除角色菜单关系表
 		} else { // 子菜单
+			mysql_query("delete from role_menu_relation where menu_id = " . $menuId); // 删除角色菜单关系表
 			mysql_query("delete from menu where menu_id = " . $menuId); // 删除子菜单
 		}
 	}
