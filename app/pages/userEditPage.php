@@ -19,6 +19,12 @@
 	while($row = mysql_fetch_array($listRs)){
 		$roleList[] = $row['role_id'];
 	}
+	
+	$courseRs = mysql_query("select course_code from user_course_relation where user_id = '$userId'"); // 查询用户拥有的所有角色
+	$courseList = array();
+	while($row = mysql_fetch_array($courseRs)){
+		$courseList[] = $row['course_code'];
+	}
 ?>
 
 <link href="css/page.css" rel="stylesheet" type="text/css" media="screen"/> 
@@ -31,13 +37,19 @@
 			<dl>
 				<dt>用户ID：</dt>
 				<dd>
-					<span class="text"><?php echo $user['user_id'];?></span>
+					<input type="text" name="userId" value="<?php echo $user['user_id'];?>" class="required floatLeft" minlength="2" maxlength="10" remote="app/userAction.php?op=checkUserId=<?php echo $suer['user_id'];?>" alt="请输入用户ID"/>
 				</dd>
 			</dl>
 			<dl>
 				<dt>姓名：</dt>
 				<dd>
-					<span class="text"><?php echo $user['user_name'];?></span>
+					<input type="text" name="userName" value="<?php echo $user['user_name'];?>" class="required floatLeft" minlength="2" maxlength="10" " alt="请输入用户名"/>
+				</dd>
+			</dl>
+			<dl>
+				<dt>密码：</dt>
+				<dd>
+					<input type="text" name="password" value="<?php echo $user['password'];?>" class="required floatLeft" minlength="2" maxlength="10" " alt="请重输密码"/>
 				</dd>
 			</dl>
 			<dl>
@@ -66,13 +78,30 @@
 									}
 								}
 							}
-							mysql_close($conn);
 						?>
 					</div>
 					<div><span class="info">请为其授予角色（至少选一个）</span></div>
 				</dd>
 			</dl>
-			</div>
+			<dl>
+				<dt>选择课程：</dt>
+				<dd>
+					<div class="floatLeft">
+						<?php
+							$courseRs = mysql_query("select * from base_code_def where father_base_code = 'course' order by base_code_id");
+							while ($course = mysql_fetch_array($courseRs)) {
+								if (in_array($course['code_value'], $courseList)) {
+									echo "<input type='checkbox' name='courseList[]' value='" . $course['code_value'] . "' checked/><span>" . $course['display_value'] . "</span>";
+								} else {
+									echo "<input type='checkbox' name='courseList[]' value='" . $course['code_value'] . "'/><span>" . $course['display_value'] . "</span>";
+								}
+							}
+							mysql_close($conn);
+						?>
+					</div>
+				</dd>
+			</dl>
+		</div>
 		<div class="formBar">
 			<ul>
 				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">修改</button></div></div></li>

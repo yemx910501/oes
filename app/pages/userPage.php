@@ -83,6 +83,7 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
+			<li><a class="add" href="app/pages/userAddPage.php" target="navTab" title="新增用户"><span>新增用户</span></a></li>
 			<li><a class="delete" href="app/userAction.php?op=batchDel" rel="ids[]" target="selectedTodo" title="确定要删除这些用户吗？"><span>批量删除</span></a></li>
 		</ul>
 	</div>
@@ -102,7 +103,10 @@
 			</tr>
 		</thead>
 		<tbody>
+		
 			<?php
+				require_once dirname(__FILE__).'/../common/commonFunc.php';
+				$conn = createConn(); // 创建数据库连接
 				if (is_resource($rs)) {
 					$sort = 0;
 					while ($user = mysql_fetch_array($rs)) {
