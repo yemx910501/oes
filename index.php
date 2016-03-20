@@ -25,7 +25,7 @@
 		</div>
 		<div id="login_content">
 			<div class="loginForm">
-				<form id="loginForm" name="_loginForm" method="post" action="app/login.php" onsubmit="return validateForm();">
+				<form id="loginForm" name="_loginForm" method="post" action="app/loginAction.php?op=login" onsubmit="return validateForm();">
 					<p>
 						<label>用户名：</label>
 						<input type="text" name="username" id="username" class="login_input"/>

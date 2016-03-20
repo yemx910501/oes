@@ -110,7 +110,7 @@ $(function(){
 				<!-- <div class="logo"></div> -->
 				<ul class="nav">
 					<li>你好，<?php echo $_SESSION['userId'] . "/ " . $_SESSION['userName'];?></li>
-					<li><a href="logout.php">退出</a></li>
+					<li><a href="app/loginAction.php?op=logout">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">
 					<li theme="default"><div>蓝色</div></li>
