@@ -47,33 +47,38 @@
 			return this.optional(element) || /^[0-9]{11}$/.test(value);
 		}, "Please specify a valid mobilephone");
 		
-		/* 验证地址 by */
+		/* 验证地址 */
 		$.validator.addMethod("address", function(value, element) {
 			return this.optional(element) || /^.{1,100}$/.test(value);
 		}, "Please specify a valid address");
 		
 		/* 验证试题分数 */
 		$.validator.addMethod("score", function(value, element) {
-			var flag=false, OK_flag=true;
-			if(/^[0-9]+(.[0-9]{1,1})?$/.test(value)){
-				if(value.indexOf(".")>=0){
+			var flag = false, 
+				OK_flag = true;
+			if (/^[0-9]+(.[0-9]{1,1})?$/.test(value)) {
+				if (value.indexOf(".") >= 0) {
 					var decimal_part = value.split(".")[1];
-					if(decimal_part!="5"){OK_flag=false;} //小数部分必须为5
+					if (decimal_part != "5") {
+						OK_flag = false; //小数部分必须为5
+					} 
 				}
-				if(OK_flag){
+				if (OK_flag) {
 					//value = value.replace(/\s+/g,"");
 					value = parseFloat(value);
-					if(value>0 && value<=100){flag = true;}
+					if (value>0 && value<=100) {
+						flag = true;
+					}
 				}
 			}
 			return this.optional(element) || flag;
 		}, "Please specify a valid score");
 		
-		/* 验证试题试题内容 by ymx 2014/8/30*/
+		/* 验证试题试题内容 */
 		$.validator.addMethod("content", function(value, element) {
 			var flag = true;
 			if(value.indexOf(";")>=0 || value.indexOf("；")>=0){
-				//含有分号
+				// 含有分号
 				flag = false;
 			}
 			return this.optional(element) || flag;
